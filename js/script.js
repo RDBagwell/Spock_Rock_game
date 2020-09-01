@@ -26,7 +26,29 @@ const choices = {
   spock: { name: 'Spock', defeats: ['scissors', 'rock'] },
 };
 
+let playerScore = 0;
+let computerScore = 0;
+
 let computerChoice = '';
+
+function updateScore(playchoice) {
+  console.log(playchoice, computerChoice)
+  if(playchoice == computerChoice){
+    resultText.textContent = "It's a tie!"
+  } else {
+    const choice = choices[playchoice];
+    if(choice.defeats.indexOf(computerChoice) > -1){
+      resultText.textContent = "You Won!";
+      playerScore++;
+      playerScoreEl.textContent = playerScore;
+    } else{
+      resultText.textContent = "You Lost!";
+      computerScore++;
+      computerScoreEl.textContent = computerScore;
+    }
+
+  }
+}
 
 function resetSelected() {
   allGameIcons.forEach((icon)=>{
@@ -54,14 +76,15 @@ function computerRanomChoice() {
   }
 }
 
-function checkResult() {
+function checkResult(playchoice) {
   resetSelected();
   computerRanomChoice();
+  updateScore(playchoice)
 }
 
 function select(playchoice) {
   resetSelected();
-  checkResult();
+  checkResult(playchoice);
   switch (playchoice) {
     case 'rock':
       playerRockEl.classList.add('selected');
