@@ -17,6 +17,7 @@ const computerSpockEl = document.getElementById('computerSpock');
 
 const resultText = document.getElementById('resultText'); 
 const allGameIcons = document.querySelectorAll('.far');
+const resetBnt = document.querySelector('.reset-icon');
 
 const choices = {
   rock: { name: 'Rock', defeats: ['scissors', 'lizard'] },
@@ -32,7 +33,6 @@ let computerScore = 0;
 let computerChoice = '';
 
 function updateScore(playchoice) {
-  console.log(playchoice, computerChoice)
   if(playchoice == computerChoice){
     resultText.textContent = "It's a tie!"
   } else {
@@ -54,6 +54,18 @@ function resetSelected() {
   allGameIcons.forEach((icon)=>{
     icon.classList.remove('selected');
   });
+}
+
+function resetAll() {
+  playerScore = 0;
+  computerScore = 0
+  playerScoreEl.textContent = playerScore;
+  playerChoiceEl.textContent = '';
+  computerChoiceEl.textContent = '';
+  computerScoreEl.textContent = computerScore;
+  computerChoice = '';
+  resultText.textContent = "";
+  resetSelected();
 }
 
 function computerRanomChoice() {
@@ -147,3 +159,5 @@ function computerselect(computerChoice) {
       break;
   }
 }
+
+resetBnt.addEventListener('click', resetAll);
